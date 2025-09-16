@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   logoText: { fontSize: 18, fontWeight: 'bold', color: '#fff' },
   menu: { flex: 3, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
   menuItemContainer: {
-    marginHorizontal: 15,
+    marginHorizontal: 65,
   },
   menuItem: { color: '#fff', fontSize: 14 },
   buttonGroup: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' },
