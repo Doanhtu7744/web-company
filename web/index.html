@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>WebCompany</title>
+    <link rel="stylesheet" href="./scrollbar.css" />
+    <style>
+        /* Additional styles to ensure scrollbars are visible */
+        html, body {
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: auto;
+            scrollbar-color: #888 #f1f1f1;
+        }
+        
+        /* Force scrollbars to be visible on all scrollable elements */
+        * {
+            scrollbar-width: auto !important;
+        }
+        
+        /* React Native Web specific styles */
+        [data-reactroot] {
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        /* Ensure ScrollView components show scrollbars */
+        div[style*="overflow"] {
+            overflow-y: scroll !important;
+            scrollbar-width: auto !important;
+        }
+
+        div[style*="overflow"]::-webkit-scrollbar {
+            width: 16px !important;
+            display: block !important;
+            -webkit-appearance: none !important;
+        }
+
+        div[style*="overflow"]::-webkit-scrollbar-track {
+            background: #f1f1f1 !important;
+            border-radius: 8px !important;
+        }
+
+        div[style*="overflow"]::-webkit-scrollbar-thumb {
+            background: #888 !important;
+            border-radius: 8px !important;
+            border: 2px solid #f1f1f1 !important;
+            min-height: 20px !important;
+        }
+
+        div[style*="overflow"]::-webkit-scrollbar-thumb:hover {
+            background: #555 !important;
+        }
+
+        /* Force all React Native ScrollViews to show scrollbars */
+        [data-reactroot] div {
+            scrollbar-width: auto !important;
+        }
+
+        [data-reactroot] div::-webkit-scrollbar {
+            width: 16px !important;
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
