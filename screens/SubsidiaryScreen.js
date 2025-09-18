@@ -28,7 +28,7 @@ const SubsidiaryScreen = ({ navigation }) => {
       address: 'Address: Hanoi, Vietnam',
       phone: 'Phone: +84 123 456 789',
       email: 'email@photoism.co.kr',
-      facebook: 'Facebook Link'
+      facebook: 'Facebook'
     },
     recruitment: [
       { position: 'Position to recruit 1', desc: 'Description' },
@@ -238,7 +238,7 @@ const SubsidiaryScreen = ({ navigation }) => {
           <Text style={styles.contactValue}></Text>
         </View>
         <View style={styles.contactRow}>
-          <Text style={styles.contactLabel}>Facebook Link:</Text>
+          <Text style={styles.contactLabel}>Facebook:</Text>
           <Text style={styles.contactValue}></Text>
         </View>
       </View>

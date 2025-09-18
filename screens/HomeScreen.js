@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
     contact: {
       address: 'Address: Hanoi, Vietnam',
       email: 'email@photoism.co.kr',
-      facebook: 'Facebook Link'
+      facebook: 'Facebook'
     }
   };
 
@@ -220,13 +220,13 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.contactValue}></Text>
         </View>
         <View style={styles.contactRow}>
-          <Text style={styles.contactLabel}>Facebook Link:</Text>
+          <Text style={styles.contactLabel}>Facebook:</Text>
           <Text style={styles.contactValue}></Text>
         </View>
       </View>
 
       {/* Additional Content to ensure scrolling */}
-      <View style={styles.card}>
+      {/* <View style={styles.card}>
         <Text style={styles.cardTitle}>Additional Information</Text>
         <Text style={styles.cardText}>This is additional content to ensure the page has enough content to scroll.</Text>
         <Text style={styles.cardText}>You should be able to see a scrollbar on the right side of the screen.</Text>
@@ -252,7 +252,7 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('ScrollTest')}
       >
         <Text style={styles.testButtonText}>🧪 Test Scrolling</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </CustomScrollView>
   );
 };
