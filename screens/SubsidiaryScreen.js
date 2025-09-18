@@ -3,7 +3,8 @@ import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'rea
 
 
 const SubsidiaryScreen = ({ navigation }) => {
-  // Dữ liệu mẫu (thay bằng props hoặc API)
+
+  // Sample data (replace with props or API)
   const subsidiaryData = {
     name: 'Photoism Subsidiary',
     slogan: 'Gallery - Photoism',
@@ -24,7 +25,7 @@ const SubsidiaryScreen = ({ navigation }) => {
       address: 'Address: Hanoi, Vietnam',
       phone: 'Phone: +84 123 456 789',
       email: 'email@photoism.co.kr',
-      facebook: 'Facebook Link'
+      facebook: 'Facebook'
     },
     recruitment: [
       { position: 'Position to recruit 1', desc: 'Description' },
@@ -44,6 +45,9 @@ const SubsidiaryScreen = ({ navigation }) => {
         navigation.navigate('Branches');
       } else if (item === 'News') {
         navigation.navigate('News');
+      } else if (item === 'Projects') {
+        // Navigate to Home and scroll to Featured Projects section
+        navigation.navigate('Home', { scrollToProjects: true });
       } else {
         alert(`Navigate to ${item}`);
       }
@@ -57,6 +61,67 @@ const SubsidiaryScreen = ({ navigation }) => {
     alert(`Switch to ${lang}`);
     setLanguageDropdownVisible(false);
   };
+
+  // Get branches data from Branches screen (same data structure)
+  const hanoiBranches = [
+    {
+      id: 1,
+      title: 'Hanoi Branch - Center',
+      description: 'Main branch in Hanoi city center, serving customers in inner city area.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-1248845-512.png'
+    },
+    {
+      id: 2,
+      title: 'Hanoi Branch - Cau Giay',
+      description: 'Branch in Cau Giay district, serving the western area of Hanoi.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-2847392-512.png'
+    },
+    {
+      id: 3,
+      title: 'Hanoi Branch - Dong Da',
+      description: 'Branch in Dong Da district, serving the central-west area of Hanoi.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-1248845-512.png'
+    },
+    {
+      id: 4,
+      title: 'Hanoi Branch - Long Bien',
+      description: 'Branch in Long Bien district, serving the area north of the Red River.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-3409543-512.png'
+    },
+  ];
+
+  const hoChiMinhBranches = [
+    {
+      id: 1,
+      title: 'Ho Chi Minh City Branch - District 1',
+      description: 'Main branch in the city center, serving District 1 and central districts.',
+      icon: 'https://static.thenounproject.com/png/building-icon-3739759-512.png'
+    },
+    {
+      id: 2,
+      title: 'Ho Chi Minh City Branch - District 3',
+      description: 'Branch in District 3, serving the central area of Ho Chi Minh City.',
+      icon: 'https://static.thenounproject.com/png/building-icon-2847392-512.png'
+    },
+    {
+      id: 3,
+      title: 'Ho Chi Minh City Branch - Binh Thanh',
+      description: 'Branch in Binh Thanh district, serving the eastern area of the city.',
+      icon: 'https://static.thenounproject.com/png/building-icon-1248845-512.png'
+    },
+    {
+      id: 4,
+      title: 'Ho Chi Minh City Branch - Thu Duc',
+      description: 'Branch in Thu Duc city, serving the northeastern area and technology hub.',
+      icon: 'https://static.thenounproject.com/png/building-icon-3409543-512.png'
+    },
+  ];
+
+  // Select one branch from each city for display
+  const branchesData = [
+    hanoiBranches[0], // First Hanoi branch
+    hoChiMinhBranches[0] // First Ho Chi Minh branch
+  ];
 
 
 
@@ -76,7 +141,7 @@ const SubsidiaryScreen = ({ navigation }) => {
       alwaysBounceVertical={false}
       nestedScrollEnabled={true}
     >
-      {/* Header giống photoism.co.kr: Fixed top, logo left, menu center, language right */}
+      {/* Header similar to photoism.co.kr: Fixed top, logo left, menu center, language right */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.logo} onPress={handleLogoPress}>
           <Text style={styles.logoText}>LOGO</Text>
@@ -103,15 +168,20 @@ const SubsidiaryScreen = ({ navigation }) => {
               <TouchableOpacity onPress={() => handleLanguagePress('English')}>
                 <Text style={styles.dropdownItem}>English</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleLanguagePress('Tiếng Việt')}>
+                <Text style={styles.dropdownItem}>Tiếng Việt</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
       </View>
 
       {/* Banner */}
-      <View style={styles.banner}>
-        <Image source={{ uri: 'https://via.placeholder.com/400x200?text=Banner+Image' }} style={styles.bannerImage} />
+      <View style={styles.bannerContainer}>
         <Text style={styles.companyName}>Company Name</Text>
+        <View style={styles.banner}>
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2' }} style={styles.bannerImage} />
+        </View>
         <Text style={styles.slogan}>Company Slogan</Text>
       </View>
 
@@ -143,51 +213,55 @@ const SubsidiaryScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Services Provided */}
-      <Text style={styles.sectionTitle}>Services provided</Text>
-      <View style={styles.servicesRow}>
-        <View style={styles.screenshotContainer}>
-          <Image source={{ uri: 'https://via.placeholder.com/200x150?text=Screenshot' }} style={styles.screenshotImage} />
-        </View>
-        <View style={styles.serviceInfo}>
-          <Text style={styles.serviceText}>Information company</Text>
-        </View>
+      {/* Branches */}
+      <Text style={styles.sectionTitle}>Branches</Text>
+      <View style={styles.branchesGrid}>
+        {branchesData.map((branch) => (
+          <View key={branch.id} style={styles.branchCard}>
+            <Image source={{ uri: branch.icon }} style={styles.branchImage} />
+            <View style={styles.branchInfo}>
+              <Text style={styles.branchName}>{branch.title}</Text>
+              <Text style={styles.branchDescription}>{branch.description}</Text>
+            </View>
+          </View>
+        ))}
       </View>
 
-      {/* Featured Projects */}
-      <Text style={styles.sectionTitle}>Featured Projects</Text>
+      {/* Featured Events */}
+      <Text style={styles.sectionTitle}>Featured Events</Text>
       <View style={styles.projectsGrid}>
         <View style={styles.projectCard}>
-          <Text style={styles.projectTitle}>Project 1</Text>
+          <Text style={styles.projectTitle}>Event 1</Text>
           <Text style={styles.projectDesc}>Has time, location, simple description of the event, and at the end a link to a page that describes the event in more detail.</Text>
         </View>
         <View style={styles.projectCard}>
-          <Text style={styles.projectTitle}>Project 2</Text>
+          <Text style={styles.projectTitle}>Event 2</Text>
           <Text style={styles.projectDesc}>Has time, location, simple introduction of the event, with a link at the end to a page that describes the event in more detail.</Text>
         </View>
         <View style={styles.projectCard}>
-          <Text style={styles.projectTitle}>Project 3</Text>
+          <Text style={styles.projectTitle}>Event 3</Text>
           <Text style={styles.projectDesc}>Has time, location, simple introduction of the event, with a link at the end to a page that describes the event in more detail.</Text>
         </View>
       </View>
 
-      {/* News */}
-      <Text style={styles.sectionTitle}>News</Text>
-      <View style={styles.newsGrid}>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
+      {/* Recruitment */}
+      <Text style={styles.sectionTitle}>Recruitment</Text>
+      <View style={styles.recruitmentGrid}>
+        <View style={styles.recruitmentCard}>
+          <Text style={styles.recruitmentPosition}>Position to recruit</Text>
+          <Text style={styles.recruitmentDescription}>Description</Text>
         </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
+        <View style={styles.recruitmentCard}>
+          <Text style={styles.recruitmentPosition}>Position to recruit</Text>
+          <Text style={styles.recruitmentDescription}>Description</Text>
         </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
+        <View style={styles.recruitmentCard}>
+          <Text style={styles.recruitmentPosition}>Position to recruit</Text>
+          <Text style={styles.recruitmentDescription}>Description</Text>
+        </View>
+        <View style={styles.recruitmentCard}>
+          <Text style={styles.recruitmentPosition}>Position to recruit</Text>
+          <Text style={styles.recruitmentDescription}>Description</Text>
         </View>
       </View>
 
@@ -195,24 +269,24 @@ const SubsidiaryScreen = ({ navigation }) => {
       <Text style={styles.sectionTitle}>Partners Information</Text>
       <View style={styles.partnersGrid}>
         <View style={styles.partnerCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/100x80?text=Logo/Screenshot' }} style={styles.partnerImage} />
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1521791055366-0d553872125f' }} style={styles.partnerImage} />
           <View style={styles.partnerInfo}>
-            <Text style={styles.partnerTitle}>Title</Text>
-            <Text style={styles.partnerDesc}>Description</Text>
+            <Text style={styles.partnerTitle}>Technology Partner</Text>
+            <Text style={styles.partnerDesc}>Leading technology solutions and innovative digital services for modern businesses.</Text>
           </View>
         </View>
         <View style={styles.partnerCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/100x80?text=Logo/Screenshot' }} style={styles.partnerImage} />
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d' }} style={styles.partnerImage} />
           <View style={styles.partnerInfo}>
-            <Text style={styles.partnerTitle}>Title</Text>
-            <Text style={styles.partnerDesc}>Description</Text>
+            <Text style={styles.partnerTitle}>Business Partner</Text>
+            <Text style={styles.partnerDesc}>Strategic business consulting and professional services to drive growth and success.</Text>
           </View>
         </View>
         <View style={styles.partnerCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/100x80?text=Logo/Screenshot' }} style={styles.partnerImage} />
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d' }} style={styles.partnerImage} />
           <View style={styles.partnerInfo}>
-            <Text style={styles.partnerTitle}>Title</Text>
-            <Text style={styles.partnerDesc}>Description</Text>
+            <Text style={styles.partnerTitle}>Creative Partner</Text>
+            <Text style={styles.partnerDesc}>Creative design and marketing solutions to enhance brand presence and engagement.</Text>
           </View>
         </View>
       </View>
@@ -233,7 +307,7 @@ const SubsidiaryScreen = ({ navigation }) => {
           <Text style={styles.contactValue}></Text>
         </View>
         <View style={styles.contactRow}>
-          <Text style={styles.contactLabel}>Facebook Link:</Text>
+          <Text style={styles.contactLabel}>Facebook:</Text>
           <Text style={styles.contactValue}></Text>
         </View>
       </View>
@@ -248,8 +322,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 150, // Tăng padding để có thể cuộn đến cuối
-    paddingTop: 80, // Thêm padding top để tránh header che
+    paddingBottom: 150, // Increase padding to be able to scroll to the end
+    paddingTop: 80, // Add padding top to avoid header covering content
   },
   header: {
     flexDirection: 'row',
@@ -297,12 +371,43 @@ const styles = StyleSheet.create({
     color: '#333',
     textAlign: 'center',
   },
-  banner: { height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ddd' },
-  bannerImage: { width: '100%', height: 150 },
-  companyName: { fontSize: 24, fontWeight: 'bold', position: 'absolute', top: 20 },
-  slogan: { fontSize: 16, position: 'absolute', bottom: 20 },
+  bannerContainer: {
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    paddingVertical: 20,
+    marginBottom: 10
+  },
+  banner: {
+    width: '90%',
+    height: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ddd',
+    overflow: 'hidden',
+    borderRadius: 10,
+    marginVertical: 10
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 10
+  },
+  companyName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  slogan: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 10
+  },
   card: { margin: 10, padding: 15, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ddd', borderRadius: 5 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginTop: 20, marginHorizontal: 10 },
+  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginTop: 20, marginHorizontal: 10, textAlign: 'center' },
   description: { fontSize: 14, color: '#666', textAlign: 'center' },
   timelineItem: { fontSize: 14, marginVertical: 2, textAlign: 'center' },
   gridRow: { flexDirection: 'row', justifyContent: 'space-around', margin: 10 },
@@ -317,14 +422,28 @@ const styles = StyleSheet.create({
   projectCard: { width: '30%', margin: 5, padding: 15, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
   projectTitle: { fontWeight: 'bold', marginBottom: 8, fontSize: 16 },
   projectDesc: { fontSize: 12, color: '#666', lineHeight: 16 },
-  newsGrid: { flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap', margin: 10 },
-  newsCard: { width: '30%', margin: 5, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
-  newsImage: { width: '100%', height: 80, backgroundColor: '#ddd' },
-  newsTitle: { fontWeight: 'bold', padding: 8, textAlign: 'center', borderBottomWidth: 1, borderBottomColor: '#ddd' },
-  newsDesc: { padding: 8, fontSize: 12, color: '#666', textAlign: 'center' },
+  branchesGrid: { flexDirection: 'column', margin: 10 },
+  branchCard: { flexDirection: 'row', margin: 5, padding: 10, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
+  branchImage: {
+    width: 120,
+    height: 80,
+    backgroundColor: '#f0f0f0',
+    marginRight: 15,
+    borderRadius: 5,
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: '#ddd'
+  },
+  branchInfo: { flex: 1, justifyContent: 'center' },
+  branchName: { fontWeight: 'bold', marginBottom: 8, fontSize: 16, borderBottomWidth: 1, borderBottomColor: '#ddd', paddingBottom: 5 },
+  branchDescription: { fontSize: 14, color: '#666', lineHeight: 20 },
+  recruitmentGrid: { flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap', margin: 10 },
+  recruitmentCard: { width: '45%', margin: 5, padding: 15, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
+  recruitmentPosition: { fontWeight: 'bold', marginBottom: 8, fontSize: 14, borderBottomWidth: 1, borderBottomColor: '#ddd', paddingBottom: 8 },
+  recruitmentDescription: { fontSize: 12, color: '#666', minHeight: 80, textAlignVertical: 'top' },
   partnersGrid: { flexDirection: 'column', margin: 10 },
   partnerCard: { flexDirection: 'row', margin: 5, padding: 10, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
-  partnerImage: { width: 80, height: 60, backgroundColor: '#ddd', marginRight: 10 },
+  partnerImage: { width: 80, height: 60, backgroundColor: '#f8f8f8', marginRight: 10, borderRadius: 5, resizeMode: 'cover' },
   partnerInfo: { flex: 1, justifyContent: 'center' },
   partnerTitle: { fontWeight: 'bold', marginBottom: 4 },
   partnerDesc: { fontSize: 12, color: '#666' },

@@ -1,10 +1,34 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import CustomScrollView from '../components/CustomScrollView';
+import { getTopThreeNews } from '../data/newsData';
 
 
-const HomeScreen = ({ navigation }) => {
-  // Dữ liệu mẫu (thay bằng props hoặc API)
+const HomeScreen = ({ navigation, route }) => {
+  // Get the first 3 news from common data
+  const topThreeNews = getTopThreeNews();
+
+  // Ref for scroll view to be able to scroll to specific position
+  const scrollViewRef = useRef(null);
+  // Ref for Featured Projects section to get exact position
+  const featuredProjectsRef = useRef(null);
+
+  // Check if there is scrollToProjects parameter from navigation
+  useEffect(() => {
+    if (route.params?.scrollToProjects) {
+      console.log('scrollToProjects parameter detected, will scroll after delay');
+      // Multiple attempts to ensure scroll works
+      const timeouts = [500, 1000, 1500];
+      timeouts.forEach(delay => {
+        setTimeout(() => {
+          console.log(`Executing scrollToProjects after ${delay}ms delay`);
+          scrollToProjects();
+        }, delay);
+      });
+    }
+  }, [route.params?.scrollToProjects]);
+
+  // Sample data (replace with props or API)
   const companyInfo = {
     name: 'Photoism',
     slogan: 'Gallery - Photoism',
@@ -18,11 +42,6 @@ const HomeScreen = ({ navigation }) => {
       { title: 'Project 2', desc: 'Has time, location 2, simple introduction of the event with a link at the end to a page that describes the event.' },
       { title: 'Project 3', desc: 'Has time, location 3, simple introduction of the event that describes the event with a link to more detail.' }
     ],
-    news: [
-      { title: 'News 1', info: 'Information about news' },
-      { title: 'News 2', info: 'Information about news' },
-      { title: 'News 3', info: 'Information about news' }
-    ],
     partners: [
       { title: 'Partner 1', desc: 'Description' },
       { title: 'Partner 2', desc: 'Description' },
@@ -31,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
     contact: {
       address: 'Address: Hanoi, Vietnam',
       email: 'email@photoism.co.kr',
-      facebook: 'Facebook Link'
+      facebook: 'Facebook'
     }
   };
 
@@ -42,14 +61,74 @@ const HomeScreen = ({ navigation }) => {
         navigation.navigate('Branches');
       } else if (item === 'News') {
         navigation.navigate('News');
+      } else if (item === 'Projects') {
+        // Scroll to Featured Projects section
+        scrollToProjects();
       } else {
-        alert(`Navigate to ${item}`); // Giữ alert cho các mục khác
+        alert(`Navigate to ${item}`); // Keep alert for other items
       }
     };
 
+  // Function to scroll to Featured Projects section
+  const scrollToProjects = () => {
+    console.log('scrollToProjects called, scrollViewRef.current:', scrollViewRef.current);
+    if (scrollViewRef.current && featuredProjectsRef.current) {
+      // Get screen dimensions
+      const screenHeight = Dimensions.get('window').height;
+
+      // Measure the Featured Projects section position
+      featuredProjectsRef.current.measureLayout(
+        scrollViewRef.current,
+        (x, y, width, height) => {
+          console.log('Featured Projects measured position:', { x, y, width, height });
+          console.log('Screen height:', screenHeight);
+
+          // Calculate offset to center the section on screen
+          // Subtract half of screen height and add some offset for better centering
+          const centeredPosition = Math.max(0, y - (screenHeight / 2) + (height / 2));
+
+          console.log('Centered position:', centeredPosition);
+
+          scrollViewRef.current.scrollTo({
+            y: centeredPosition,
+            animated: true
+          });
+        },
+        (error) => {
+          console.log('Error measuring Featured Projects position:', error);
+          // Fallback to estimated position
+          // Header (80px) + Banner (300px) + Company Info (~400px) + Services (~200px) = ~980px
+          const featuredProjectsPosition = 980;
+          const centeredPosition = Math.max(0, featuredProjectsPosition - (screenHeight / 2) + 100);
+          scrollViewRef.current.scrollTo({
+            y: centeredPosition,
+            animated: true
+          });
+        }
+      );
+    } else {
+      console.log('scrollViewRef.current or featuredProjectsRef.current is null');
+      // Fallback method
+      if (scrollViewRef.current) {
+        const screenHeight = Dimensions.get('window').height;
+        const featuredProjectsPosition = 980;
+        const centeredPosition = Math.max(0, featuredProjectsPosition - (screenHeight / 2) + 100);
+        scrollViewRef.current.scrollTo({
+          y: centeredPosition,
+          animated: true
+        });
+      }
+    }
+  };
+
+  // Function to handle when clicking on news to navigate to News page with specific news
+  const handleNewsPress = (newsId) => {
+    navigation.navigate('News', { selectedNewsId: newsId });
+  };
+
   const handleLanguagePress = (lang) => {
     alert(`Switch to ${lang}`);
-    setLanguageDropdownVisible(false); // Đóng dropdown sau khi chọn
+    setLanguageDropdownVisible(false); // Close dropdown after selection
   };
 
 
@@ -60,10 +139,11 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <CustomScrollView
+      ref={scrollViewRef}
       style={styles.container}
       contentContainerStyle={styles.scrollContent}
     >
-      {/* Header giống photoism.co.kr: Fixed top, logo left, menu center, language right */}
+      {/* Header similar to photoism.co.kr: Fixed top, logo left, menu center, language right */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.logo}>
           <Text style={styles.logoText}>LOGO</Text>
@@ -90,15 +170,20 @@ const HomeScreen = ({ navigation }) => {
               <TouchableOpacity onPress={() => handleLanguagePress('English')}>
                 <Text style={styles.dropdownItem}>English</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleLanguagePress('Tiếng Việt')}>
+                <Text style={styles.dropdownItem}>Tiếng Việt</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
       </View>
 
       {/* Banner */}
-      <View style={styles.banner}>
-        <Image source={{ uri: 'https://via.placeholder.com/400x200?text=Banner+Image' }} style={styles.bannerImage} />
+      <View style={styles.bannerContainer}>
         <Text style={styles.companyName}>Company Name</Text>
+        <View style={styles.banner}>
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29' }} style={styles.bannerImage} />
+        </View>
         <Text style={styles.slogan}>Company Slogan</Text>
       </View>
 
@@ -134,7 +219,7 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.sectionTitle}>Services provided</Text>
       <View style={styles.servicesRow}>
         <View style={styles.screenshotContainer}>
-          <Image source={{ uri: 'https://via.placeholder.com/200x150?text=Screenshot' }} style={styles.screenshotImage} />
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2' }} style={styles.screenshotImage} />
         </View>
         <View style={styles.serviceInfo}>
           <Text style={styles.serviceText}>Information company</Text>
@@ -142,8 +227,9 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       {/* Featured Projects (Grid) */}
-      <Text style={styles.sectionTitle}>Featured Projects</Text>
-      <View style={styles.projectsGrid}>
+      <View ref={featuredProjectsRef}>
+        <Text style={styles.sectionTitle}>Featured Projects</Text>
+        <View style={styles.projectsGrid}>
         <View style={styles.projectCard}>
           <Text style={styles.projectTitle}>Project 1</Text>
           <Text style={styles.projectDesc}>Has time, location, simple description of the event, and at the end a link to a page that describes the event in more detail.</Text>
@@ -156,50 +242,47 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.projectTitle}>Project 3</Text>
           <Text style={styles.projectDesc}>Has time, location, simple introduction of the event, with a link at the end to a page that describes the event in more detail.</Text>
         </View>
+        </View>
       </View>
 
       {/* News (Grid) */}
       <Text style={styles.sectionTitle}>News</Text>
       <View style={styles.newsGrid}>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
+        {topThreeNews.map((news) => (
+          <TouchableOpacity
+            key={news.id}
+            style={styles.newsCard}
+            onPress={() => handleNewsPress(news.id)}
+          >
+            <Image source={{ uri: news.image }} style={styles.newsImage} />
+            <Text style={styles.newsTitle}>{news.title}</Text>
+            <Text style={styles.newsDesc}>{news.description}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* Partners Information (Grid) */}
       <Text style={styles.sectionTitle}>Partners Information</Text>
       <View style={styles.partnersGrid}>
         <View style={styles.partnerCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/100x80?text=Logo/Screenshot' }} style={styles.partnerImage} />
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1521791055366-0d553872125f' }} style={styles.partnerImage} />
           <View style={styles.partnerInfo}>
-            <Text style={styles.partnerTitle}>Title</Text>
-            <Text style={styles.partnerDesc}>Description</Text>
+            <Text style={styles.partnerTitle}>Technology Partner</Text>
+            <Text style={styles.partnerDesc}>Leading technology solutions and innovative digital services for modern businesses.</Text>
           </View>
         </View>
         <View style={styles.partnerCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/100x80?text=Logo/Screenshot' }} style={styles.partnerImage} />
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d' }} style={styles.partnerImage} />
           <View style={styles.partnerInfo}>
-            <Text style={styles.partnerTitle}>Title</Text>
-            <Text style={styles.partnerDesc}>Description</Text>
+            <Text style={styles.partnerTitle}>Business Partner</Text>
+            <Text style={styles.partnerDesc}>Strategic business consulting and professional services to drive growth and success.</Text>
           </View>
         </View>
         <View style={styles.partnerCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/100x80?text=Logo/Screenshot' }} style={styles.partnerImage} />
+          <Image source={{ uri: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d' }} style={styles.partnerImage} />
           <View style={styles.partnerInfo}>
-            <Text style={styles.partnerTitle}>Title</Text>
-            <Text style={styles.partnerDesc}>Description</Text>
+            <Text style={styles.partnerTitle}>Creative Partner</Text>
+            <Text style={styles.partnerDesc}>Creative design and marketing solutions to enhance brand presence and engagement.</Text>
           </View>
         </View>
       </View>
@@ -220,13 +303,13 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.contactValue}></Text>
         </View>
         <View style={styles.contactRow}>
-          <Text style={styles.contactLabel}>Facebook Link:</Text>
+          <Text style={styles.contactLabel}>Facebook:</Text>
           <Text style={styles.contactValue}></Text>
         </View>
       </View>
 
       {/* Additional Content to ensure scrolling */}
-      <View style={styles.card}>
+      {/* <View style={styles.card}>
         <Text style={styles.cardTitle}>Additional Information</Text>
         <Text style={styles.cardText}>This is additional content to ensure the page has enough content to scroll.</Text>
         <Text style={styles.cardText}>You should be able to see a scrollbar on the right side of the screen.</Text>
@@ -252,7 +335,7 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('ScrollTest')}
       >
         <Text style={styles.testButtonText}>🧪 Test Scrolling</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </CustomScrollView>
   );
 };
@@ -264,8 +347,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 150, // Tăng padding để có thể cuộn đến cuối
-    paddingTop: 80, // Thêm padding top để tránh header che
+    paddingBottom: 150, // Increase padding to be able to scroll to the end
+    paddingTop: 80, // Add padding top to avoid header covering content
   },
   header: {
     flexDirection: 'row',
@@ -313,12 +396,43 @@ const styles = StyleSheet.create({
     color: '#333',
     textAlign: 'center',
   },
-  banner: { height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ddd' },
-  bannerImage: { width: '100%', height: 150 },
-  companyName: { fontSize: 24, fontWeight: 'bold', position: 'absolute', top: 20 },
-  slogan: { fontSize: 16, position: 'absolute', bottom: 20 },
+  bannerContainer: {
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    paddingVertical: 20,
+    marginBottom: 10
+  },
+  banner: {
+    width: '90%',
+    height: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ddd',
+    overflow: 'hidden',
+    borderRadius: 10,
+    marginVertical: 10
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 10
+  },
+  companyName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  slogan: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 10
+  },
   card: { margin: 10, padding: 15, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ddd', borderRadius: 5 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginTop: 20, marginHorizontal: 10 },
+  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginTop: 20, marginHorizontal: 10, textAlign: 'center' },
   description: { fontSize: 14, color: '#666', textAlign: 'center' },
   timelineItem: { fontSize: 14, marginVertical: 2, textAlign: 'center' },
   gridRow: { flexDirection: 'row', justifyContent: 'space-around', margin: 10 },
@@ -340,7 +454,7 @@ const styles = StyleSheet.create({
   newsDesc: { padding: 8, fontSize: 12, color: '#666', textAlign: 'center' },
   partnersGrid: { flexDirection: 'column', margin: 10 },
   partnerCard: { flexDirection: 'row', margin: 5, padding: 10, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
-  partnerImage: { width: 80, height: 60, backgroundColor: '#ddd', marginRight: 10 },
+  partnerImage: { width: 80, height: 60, backgroundColor: '#f8f8f8', marginRight: 10, borderRadius: 5, resizeMode: 'cover' },
   partnerInfo: { flex: 1, justifyContent: 'center' },
   partnerTitle: { fontWeight: 'bold', marginBottom: 4 },
   partnerDesc: { fontSize: 12, color: '#666' },

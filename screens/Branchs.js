@@ -21,30 +21,83 @@ const BranchsScreen = ({ navigation }) => {
       navigation.navigate('Branches');
     } else if (menuItem === 'News') {
       navigation.navigate('News');
+    } else if (menuItem === 'Projects') {
+      // Navigate to Home and scroll to Featured Projects section
+      navigation.navigate('Home', { scrollToProjects: true });
     }
     // Add other navigation logic as needed
   };
 
   const hanoiBranches = [
-    { id: 1, title: 'Hanoi Branch 1', description: 'Description for Hanoi Branch 1' },
-    { id: 2, title: 'Hanoi Branch 2', description: 'Description for Hanoi Branch 2' },
-    { id: 3, title: 'Hanoi Branch 3', description: 'Description for Hanoi Branch 3' },
-    { id: 4, title: 'Hanoi Branch 4', description: 'Description for Hanoi Branch 4' },
-    { id: 5, title: 'Hanoi Branch 5', description: 'Description for Hanoi Branch 5' },
+    {
+      id: 1,
+      title: 'Hanoi Branch - Center',
+      description: 'Main branch in Hanoi city center, serving customers in inner city area.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-1248845-512.png'
+    },
+    {
+      id: 2,
+      title: 'Hanoi Branch - Cau Giay',
+      description: 'Branch in Cau Giay district, serving the western area of ​​Hanoi.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-1264419-512.png'
+    },
+    {
+      id: 3,
+      title: 'Hanoi Branch - Dong Da',
+      description: 'Branch in Dong Da district, serving the central area and neighboring districts.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-2759964-512.png'
+    },
+    {
+      id: 4,
+      title: 'Hanoi Branch - Hai Ba Trung',
+      description: 'Branch in Hai Ba Trung district, serving the eastern area of ​​Hanoi.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-3420343-512.png'
+    },
+    {
+      id: 5,
+      title: 'Hanoi Branch - Long Bien',
+      description: 'Branch in Long Bien district, serving the area north of the Red River.',
+      icon: 'https://static.thenounproject.com/png/branch-office-icon-3409543-512.png'
+    },
   ];
 
   const hoChiMinhBranches = [
-    { id: 1, title: 'Ho Chi Minh Branch 1', description: 'Description for Ho Chi Minh Branch 1' },
-    { id: 2, title: 'Ho Chi Minh Branch 2', description: 'Description for Ho Chi Minh Branch 2' },
-    { id: 3, title: 'Ho Chi Minh Branch 3', description: 'Description for Ho Chi Minh Branch 3' },
-    { id: 4, title: 'Ho Chi Minh Branch 4', description: 'Description for Ho Chi Minh Branch 4' },
-    { id: 5, title: 'Ho Chi Minh Branch 5', description: 'Description for Ho Chi Minh Branch 5' },
+    {
+      id: 1,
+      title: 'Ho Chi Minh City Branch - District 1',
+      description: 'Main branch in the city center, serving District 1 and central districts.',
+      icon: 'https://static.thenounproject.com/png/building-icon-3739759-512.png'
+    },
+    {
+      id: 2,
+      title: 'Ho Chi Minh City Branch - District 3',
+      description: 'Branch in District 3, serving the central area and neighboring districts.',
+      icon: 'https://static.thenounproject.com/png/organization-icon-2201036-512.png'
+    },
+    {
+      id: 3,
+      title: 'Ho Chi Minh City Branch - District 7',
+      description: 'Branch in District 7, serving the southern area of ​​the city and new urban area.',
+      icon: 'https://static.thenounproject.com/png/subsidiary-icon-5247442-512.png'
+    },
+    {
+      id: 4,
+      title: 'Ho Chi Minh City Branch - Thu Duc',
+      description: 'Branch in Thu Duc city, serving the Eastern region and high-tech zones.',
+      icon: 'https://static.thenounproject.com/png/business-location-icon-582793-512.png'
+    },
+    {
+      id: 5,
+      title: 'Ho Chi Minh City Branch - Binh Thanh',
+      description: 'Branch in Binh Thanh district, serving the expanding central area.',
+      icon: 'https://static.thenounproject.com/png/bank-icon-1646566-512.png'
+    },
   ];
 
   const renderBranchItem = (branch, index) => (
     <View key={branch.id} style={styles.branchItem}>
       <Image
-        source={{ uri: `https://via.placeholder.com/150x100?text=Screenshot+${index + 1}` }}
+        source={{ uri: branch.icon }}
         style={styles.branchImage}
       />
       <View style={styles.branchTextContainer}>
@@ -105,6 +158,9 @@ const BranchsScreen = ({ navigation }) => {
               <TouchableOpacity onPress={() => handleLanguageSelect('English')}>
                 <Text style={styles.dropdownItem}>English</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleLanguageSelect('Tiếng Việt')}>
+                <Text style={styles.dropdownItem}>Tiếng Việt</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
@@ -114,13 +170,13 @@ const BranchsScreen = ({ navigation }) => {
       <View style={styles.mainContent}>
         {/* Branch in Hanoi Section */}
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Branch in Hanoi</Text>
+          <Text style={styles.sectionTitle}>Branch in Ha Noi</Text>
           {hanoiBranches.map((branch, index) => renderBranchItem(branch, index))}
         </View>
 
         {/* Branches in Ho Chi Minh Section */}
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Branches in Ho Chi Minh</Text>
+          <Text style={styles.sectionTitle}>Branch in Ho Chi Minh</Text>
           {hoChiMinhBranches.map((branch, index) => renderBranchItem(branch, index))}
         </View>
       </View>
@@ -135,8 +191,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 150, // Tăng padding để có thể cuộn đến cuối
-    paddingTop: 80, // Thêm padding top để tránh header che
+    paddingBottom: 150, // Increase padding to be able to scroll to the end
+    paddingTop: 80, // Add padding top to avoid header covering content
   },
   header: {
     flexDirection: 'row',
@@ -207,11 +263,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   branchImage: {
-    width: 120,
+    width: 80,
     height: 80,
-    backgroundColor: '#ddd',
+    backgroundColor: '#f8f8f8',
     borderRadius: 5,
     marginRight: 15,
+    resizeMode: 'contain',
+    padding: 10,
   },
   branchTextContainer: {
     flex: 1,
