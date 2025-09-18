@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { getTopThreeNews } from '../data/newsData';
 
 
 const SubsidiaryScreen = ({ navigation }) => {
+  // Lấy 3 tin tức đầu tiên từ dữ liệu chung
+  const topThreeNews = getTopThreeNews();
+
   // Dữ liệu mẫu (thay bằng props hoặc API)
   const subsidiaryData = {
     name: 'Photoism Subsidiary',
@@ -56,6 +60,11 @@ const SubsidiaryScreen = ({ navigation }) => {
   const handleLanguagePress = (lang) => {
     alert(`Switch to ${lang}`);
     setLanguageDropdownVisible(false);
+  };
+
+  // Hàm xử lý khi bấm vào tin tức để dẫn đến trang News với tin tức cụ thể
+  const handleNewsPress = (newsId) => {
+    navigation.navigate('News', { selectedNewsId: newsId });
   };
 
 
@@ -174,21 +183,17 @@ const SubsidiaryScreen = ({ navigation }) => {
       {/* News */}
       <Text style={styles.sectionTitle}>News</Text>
       <View style={styles.newsGrid}>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
+        {topThreeNews.map((news) => (
+          <TouchableOpacity
+            key={news.id}
+            style={styles.newsCard}
+            onPress={() => handleNewsPress(news.id)}
+          >
+            <Image source={{ uri: news.image }} style={styles.newsImage} />
+            <Text style={styles.newsTitle}>{news.title}</Text>
+            <Text style={styles.newsDesc}>{news.description}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* Partners Information */}

@@ -26,3 +26,6 @@ export default function App() {
     </>
   );
 }
+
+
+//thêm ảnh minh hoạ vào phần News của màn Home với màn SubsidiaryScreen (3 tin tức ở 2 màn này sẽ là 3 tin tức đầu tiên trong trang News) cho tôi khi bấm vào ảnh của tin tức nào trong các tin tức đó sẽ dẫn đến tin tức đó ở trang News. Khi bấm vào tin tức nào ở trang News thì sẽ dẫn đến trang Detailednews(giữ nguyên như hiện tại là bấm vào hình tin tức nào thì sẽ chuyển đến trang chi tiết của trang đó) của tin tức đó 

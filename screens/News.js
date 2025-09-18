@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { newsData } from '../data/newsData';
 
-const NewsScreen = ({ navigation }) => {
+const NewsScreen = ({ navigation, route }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('Korean');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const scrollViewRef = useRef(null);
+  const selectedNewsId = route.params?.selectedNewsId;
 
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
@@ -29,21 +32,25 @@ const NewsScreen = ({ navigation }) => {
     navigation.navigate('DetailedNews', { newsId });
   };
 
-  const newsData = [
-    { id: 1, title: 'News Title 1', description: 'News Description 1' },
-    { id: 2, title: 'News Title 2', description: 'News Description 2' },
-    { id: 3, title: 'News Title 3', description: 'News Description 3' },
-    { id: 4, title: 'News Title 4', description: 'News Description 4' },
-    { id: 5, title: 'News Title 5', description: 'News Description 5' },
-    { id: 6, title: 'News Title 6', description: 'News Description 6' },
-    { id: 7, title: 'News Title 7', description: 'News Description 7' },
-    { id: 8, title: 'News Title 8', description: 'News Description 8' },
-    { id: 9, title: 'News Title 9', description: 'News Description 9' },
-    { id: 10, title: 'News Title 10', description: 'News Description 10' },
-  ];
+  // Cuộn đến tin tức được chọn khi màn hình được load
+  useEffect(() => {
+    if (selectedNewsId && scrollViewRef.current) {
+      // Tìm index của tin tức được chọn
+      const selectedIndex = newsData.findIndex(news => news.id === selectedNewsId);
+      if (selectedIndex !== -1) {
+        // Cuộn đến tin tức đó (ước tính vị trí dựa trên chiều cao của mỗi item)
+        const itemHeight = 130; // Ước tính chiều cao của mỗi news item
+        const scrollToY = selectedIndex * itemHeight;
+        setTimeout(() => {
+          scrollViewRef.current?.scrollTo({ y: scrollToY, animated: true });
+        }, 100);
+      }
+    }
+  }, [selectedNewsId]);
 
   return (
     <ScrollView
+      ref={scrollViewRef}
       style={styles.container}
       showsVerticalScrollIndicator={true}
       persistentScrollbar={true}
@@ -110,12 +117,15 @@ const NewsScreen = ({ navigation }) => {
           {newsData.map((news) => (
             <TouchableOpacity
               key={news.id}
-              style={styles.newsItem}
+              style={[
+                styles.newsItem,
+                selectedNewsId === news.id && styles.selectedNewsItem
+              ]}
               onPress={() => handleNewsPress(news.id)}
             >
               <View style={styles.newsContent}>
                 <Image
-                  source={{ uri: `https://via.placeholder.com/150x100?text=Screenshot+${news.id}` }}
+                  source={{ uri: news.image }}
                   style={styles.newsImage}
                 />
                 <View style={styles.newsTextContainer}>
@@ -208,6 +218,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 15,
     padding: 15,
+  },
+  selectedNewsItem: {
+    backgroundColor: '#f0f8ff',
+    borderColor: '#4a90e2',
+    borderWidth: 2,
   },
   newsContent: {
     flexDirection: 'row',

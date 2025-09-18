@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import CustomScrollView from '../components/CustomScrollView';
+import { getTopThreeNews } from '../data/newsData';
 
 
 const HomeScreen = ({ navigation }) => {
+  // Lấy 3 tin tức đầu tiên từ dữ liệu chung
+  const topThreeNews = getTopThreeNews();
+
   // Dữ liệu mẫu (thay bằng props hoặc API)
   const companyInfo = {
     name: 'Photoism',
@@ -17,11 +21,6 @@ const HomeScreen = ({ navigation }) => {
       { title: 'Project 1', desc: 'Has time, location, simple description of the event with a link to the event page that describes the event in more detail.' },
       { title: 'Project 2', desc: 'Has time, location 2, simple introduction of the event with a link at the end to a page that describes the event.' },
       { title: 'Project 3', desc: 'Has time, location 3, simple introduction of the event that describes the event with a link to more detail.' }
-    ],
-    news: [
-      { title: 'News 1', info: 'Information about news' },
-      { title: 'News 2', info: 'Information about news' },
-      { title: 'News 3', info: 'Information about news' }
     ],
     partners: [
       { title: 'Partner 1', desc: 'Description' },
@@ -46,6 +45,11 @@ const HomeScreen = ({ navigation }) => {
         alert(`Navigate to ${item}`); // Giữ alert cho các mục khác
       }
     };
+
+  // Hàm xử lý khi bấm vào tin tức để dẫn đến trang News với tin tức cụ thể
+  const handleNewsPress = (newsId) => {
+    navigation.navigate('News', { selectedNewsId: newsId });
+  };
 
   const handleLanguagePress = (lang) => {
     alert(`Switch to ${lang}`);
@@ -161,21 +165,17 @@ const HomeScreen = ({ navigation }) => {
       {/* News (Grid) */}
       <Text style={styles.sectionTitle}>News</Text>
       <View style={styles.newsGrid}>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
-        <View style={styles.newsCard}>
-          <Image source={{ uri: 'https://via.placeholder.com/150x100?text=Screenshot' }} style={styles.newsImage} />
-          <Text style={styles.newsTitle}>Title</Text>
-          <Text style={styles.newsDesc}>Information about news</Text>
-        </View>
+        {topThreeNews.map((news) => (
+          <TouchableOpacity
+            key={news.id}
+            style={styles.newsCard}
+            onPress={() => handleNewsPress(news.id)}
+          >
+            <Image source={{ uri: news.image }} style={styles.newsImage} />
+            <Text style={styles.newsTitle}>{news.title}</Text>
+            <Text style={styles.newsDesc}>{news.description}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* Partners Information (Grid) */}

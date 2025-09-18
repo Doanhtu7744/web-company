@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { getNewsById } from '../data/newsData';
 
-const DetailedNewsScreen = ({ navigation }) => {
+const DetailedNewsScreen = ({ navigation, route }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('Korean');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+
+  // Lấy dữ liệu tin tức từ route params
+  const newsId = route.params?.newsId;
+  const newsData = getNewsById(newsId);
+
+  // Nếu không tìm thấy tin tức, sử dụng dữ liệu mặc định
+  const defaultNews = {
+    id: 0,
+    title: 'Default Title',
+    description: 'Default Description',
+    image: 'https://via.placeholder.com/600x400?text=Screenshot',
+    content: 'This is default content for the news article.'
+  };
+
+  const currentNews = newsData || defaultNews;
 
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
@@ -85,24 +101,18 @@ const DetailedNewsScreen = ({ navigation }) => {
       <View style={styles.mainContent}>
         {/* Large Screenshot */}
         <View style={styles.largeImageContainer}>
-          <Image source={{ uri: 'https://via.placeholder.com/600x400?text=Screenshot' }} style={styles.largeImage} />
+          <Image source={{ uri: currentNews.image }} style={styles.largeImage} />
         </View>
 
         {/* Title Section */}
         <View style={styles.titleSection}>
-          <Text style={styles.titleText}>Title</Text>
+          <Text style={styles.titleText}>{currentNews.title}</Text>
         </View>
 
         {/* Description Section */}
         <View style={styles.descriptionSection}>
-          <Text style={styles.descriptionText}>Description</Text>
-          <Text style={styles.descriptionText}>This is a detailed description of the news article.</Text>
-          <Text style={styles.descriptionText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-          <Text style={styles.descriptionText}>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-          <Text style={styles.descriptionText}>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</Text>
-          <Text style={styles.descriptionText}>Duis aute irure dolor in reprehenderit in voluptate velit esse.</Text>
-          <Text style={styles.descriptionText}>Excepteur sint occaecat cupidatat non proident, sunt in culpa.</Text>
-          <Text style={styles.descriptionText}>Qui officia deserunt mollit anim id est laborum.</Text>
+          <Text style={styles.descriptionText}>{currentNews.description}</Text>
+          <Text style={styles.descriptionText}>{currentNews.content}</Text>
         </View>
 
         {/* Additional Content */}
