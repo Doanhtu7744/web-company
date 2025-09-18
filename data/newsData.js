@@ -1,143 +1,143 @@
-// Dữ liệu tin tức chung cho toàn bộ ứng dụng
+// Common news data for the entire application
 export const newsData = [
   {
     id: 1,
-    title: 'Khám phá vẻ đẹp thiên nhiên',
-    description: 'Hành trình khám phá những cảnh quan thiên nhiên tuyệt đẹp và hoang sơ trên khắp thế giới.',
+    title: 'Exploring Natural Beauty',
+    description: 'A journey to explore the most beautiful and pristine natural landscapes around the world.',
     image: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0',
-    content: `Khám phá vẻ đẹp thiên nhiên - Hành trình tuyệt vời
+    content: `Exploring Natural Beauty - A Wonderful Journey
 
-Thiên nhiên luôn mang đến cho chúng ta những khoảnh khắc tuyệt vời và bình yên. Từ những dãy núi hùng vĩ đến những bãi biển xanh ngắt, mỗi cảnh quan đều có câu chuyện riêng của mình.
+Nature always brings us wonderful and peaceful moments. From majestic mountain ranges to crystal blue beaches, each landscape has its own story.
 
-Việc khám phá thiên nhiên không chỉ giúp chúng ta thư giãn mà còn mang lại những trải nghiệm quý giá, giúp chúng ta hiểu rõ hơn về thế giới xung quanh và tầm quan trọng của việc bảo vệ môi trường.
+Exploring nature not only helps us relax but also brings valuable experiences, helping us better understand the world around us and the importance of environmental protection.
 
-Hãy cùng nhau bảo vệ và gìn giữ những kho báu thiên nhiên này cho các thế hệ tương lai.`
+Let's work together to protect and preserve these natural treasures for future generations.`
   },
   {
     id: 2,
-    title: 'Khám phá vũ trụ bao la',
-    description: 'Những khám phá mới nhất về vũ trụ và những bí ẩn chưa được giải đáp của không gian.',
+    title: 'Exploring the Vast Universe',
+    description: 'The latest discoveries about the universe and the unsolved mysteries of space.',
     image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
-    content: `Khám phá vũ trụ bao la - Hành trình vào không gian
+    content: `Exploring the Vast Universe - Journey into Space
 
-Vũ trụ với những ngôi sao lấp lánh và những thiên hà xa xôi luôn là nguồn cảm hứng bất tận cho con người. Những khám phá khoa học gần đây đã mở ra nhiều hiểu biết mới về không gian.
+The universe with its twinkling stars and distant galaxies has always been an endless source of inspiration for humanity. Recent scientific discoveries have opened up many new understandings about space.
 
-Từ việc tìm kiếm sự sống ngoài Trái Đất đến việc nghiên cứu các hành tinh mới, khoa học vũ trụ đang phát triển với tốc độ chưa từng có.
+From searching for life beyond Earth to studying new planets, space science is developing at an unprecedented pace.
 
-Những công nghệ tiên tiến giúp chúng ta nhìn xa hơn và sâu hơn vào vũ trụ, mở ra những khả năng vô tận cho tương lai nhân loại.`
+Advanced technologies help us look further and deeper into the universe, opening up endless possibilities for the future of humanity.`
   },
   {
     id: 3,
-    title: 'Công nghệ hiện đại',
-    description: 'Những tiến bộ công nghệ mới nhất và tác động của chúng đến cuộc sống hàng ngày.',
+    title: 'Modern technology',
+    description: 'The latest technological advances and their impact on everyday life.',
     image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f',
-    content: `Công nghệ hiện đại - Thay đổi cuộc sống
+    content: `Modern technology - Change your life
 
-Công nghệ đang phát triển với tốc độ chóng mặt, thay đổi cách chúng ta làm việc, học tập và giải trí. Từ trí tuệ nhân tạo đến Internet vạn vật, mọi thứ đều được kết nối và tự động hóa.
+Technology is evolving at breakneck speed, changing the way we work, learn, and play. From artificial intelligence to the Internet of Things, everything is connected and automated.
 
-Những ứng dụng công nghệ mới không chỉ giúp cuộc sống trở nên tiện lợi hơn mà còn mở ra những cơ hội mới trong kinh doanh và giáo dục.
+New technological applications not only make life more convenient but also open up new opportunities in business and education.
 
-Tuy nhiên, chúng ta cũng cần cân nhắc về những thách thức và rủi ro mà công nghệ mang lại để sử dụng một cách có trách nhiệm.`
+However, we also need to consider the challenges and risks that technology brings to use it responsibly.`
   },
   {
     id: 4,
-    title: 'Cuộc sống thành phố',
-    description: 'Nhịp sống sôi động của thành phố và những trải nghiệm độc đáo trong môi trường đô thị.',
+    title: 'City Life',
+    description: 'The vibrant rhythm of the city and unique experiences in the urban environment.',
     image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee',
-    content: `Cuộc sống thành phố - Nhịp sống hiện đại
+    content: `City Life - Modern Rhythm
 
-Thành phố với nhịp sống sôi động và đa dạng văn hóa luôn thu hút mọi người. Từ những tòa nhà chọc trời đến những con phố nhỏ đầy màu sắc, mỗi góc phố đều có câu chuyện riêng.
+The city with its vibrant and culturally diverse life always attracts people. From skyscrapers to colorful small streets, every corner has its own story.
 
-Cuộc sống đô thị mang lại nhiều cơ hội phát triển nghề nghiệp và trải nghiệm văn hóa phong phú. Tuy nhiên, cũng đi kèm với những thách thức về môi trường và áp lực cuộc sống.
+Urban life brings many career development opportunities and rich cultural experiences. However, it also comes with environmental challenges and life pressures.
 
-Việc tìm kiếm sự cân bằng giữa công việc và cuộc sống trong môi trường thành phố là một nghệ thuật mà mỗi người cần học hỏi.`
+Finding a balance between work and life in the city environment is an art that everyone needs to learn.`
   },
   {
     id: 5,
-    title: 'Phong cảnh núi non',
-    description: 'Vẻ đẹp hùng vĩ của những dãy núi cao và những trải nghiệm trekking tuyệt vời.',
+    title: 'Mountain Landscapes',
+    description: 'The majestic beauty of high mountain ranges and wonderful trekking experiences.',
     image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
-    content: `Phong cảnh núi non - Vẻ đẹp hùng vĩ
+    content: `Mountain Landscapes - Majestic Beauty
 
-Những dãy núi cao với đỉnh phủ tuyết trắng và những thung lũng xanh mướt tạo nên những bức tranh thiên nhiên tuyệt đẹp. Leo núi không chỉ là thử thách thể chất mà còn là hành trình khám phá bản thân.
+The high mountains with snow-capped peaks and lush green valleys create beautiful natural paintings. Mountain climbing is not only a physical challenge but also a journey of self-discovery.
 
-Trên đỉnh núi, chúng ta có thể cảm nhận được sự bao la của thiên nhiên và tìm thấy sự bình yên trong tâm hồn. Những khoảnh khắc này sẽ là kỷ niệm khó quên trong cuộc đời.
+On the mountain top, we can feel the vastness of nature and find peace in our souls. These moments will be unforgettable memories in life.
 
-Hãy chuẩn bị kỹ lưỡng và tôn trọng thiên nhiên khi tham gia các hoạt động leo núi để đảm bảo an toàn và bảo vệ môi trường.`
+Be well prepared and respect nature when participating in mountain climbing activities to ensure safety and protect the environment.`
   },
   {
     id: 6,
-    title: 'Kiến trúc hiện đại',
-    description: 'Những công trình kiến trúc độc đáo và sáng tạo trong thời đại hiện đại.',
+    title: 'Modern Architecture',
+    description: 'Unique and creative architectural works in the modern era.',
     image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-    content: `Kiến trúc hiện đại - Nghệ thuật và công nghệ
+    content: `Modern Architecture - Art and Technology
 
-Kiến trúc hiện đại không chỉ là nghệ thuật mà còn là sự kết hợp hoàn hảo giữa thẩm mỹ và công năng. Những công trình kiến trúc độc đáo đã trở thành biểu tượng của các thành phố trên thế giới.
+Modern architecture is not only an art but also a perfect combination of aesthetics and function. Unique architectural works have become symbols of cities around the world.
 
-Từ những tòa nhà xanh thân thiện với môi trường đến những thiết kế táo bạo phá vỡ mọi quy tắc truyền thống, kiến trúc hiện đại luôn mang đến những trải nghiệm mới mẻ.
+From green buildings that are environmentally friendly to bold designs that break all traditional rules, modern architecture always brings new experiences.
 
-Việc ứng dụng công nghệ mới trong xây dựng đã mở ra những khả năng vô tận cho các kiến trúc sư trong việc hiện thực hóa những ý tưởng sáng tạo.`
+The application of new technology in construction has opened up endless possibilities for architects in realizing creative ideas.`
   },
   {
     id: 7,
-    title: 'Công nghệ thông tin',
-    description: 'Sự phát triển của công nghệ thông tin và ảnh hưởng đến xã hội hiện đại.',
+    title: 'Information Technology',
+    description: 'The development of information technology and its impact on modern society.',
     image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-    content: `Công nghệ thông tin - Kỷ nguyên số
+    content: `Information Technology - Digital Era
 
-Công nghệ thông tin đã thay đổi hoàn toàn cách chúng ta giao tiếp, làm việc và giải trí. Từ điện thoại thông minh đến điện toán đám mây, mọi thứ đều được số hóa và kết nối.
+Information technology has completely changed the way we communicate, work and entertain ourselves. From smartphones to cloud computing, everything is digital and connected.
 
-Sự phát triển của AI, machine learning và big data đang mở ra những cơ hội mới trong mọi lĩnh vực từ y tế, giáo dục đến kinh doanh.
+The development of AI, machine learning and big data is opening up new opportunities in every field from healthcare, education to business.
 
-Tuy nhiên, chúng ta cũng cần đối mặt với những thách thức về bảo mật thông tin và quyền riêng tư trong thời đại số.`
+However, we also need to face the challenges of information security and privacy in the digital age.`
   },
   {
     id: 8,
-    title: 'Văn hóa đọc sách',
-    description: 'Tầm quan trọng của việc đọc sách và văn hóa đọc trong thời đại công nghệ.',
+    title: 'Reading Culture',
+    description: 'The importance of reading books and reading culture in the technology age.',
     image: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
-    content: `Văn hóa đọc sách - Kho tàng tri thức
+    content: `Reading Culture - Treasure of Knowledge
 
-Trong thời đại công nghệ số, việc đọc sách vẫn giữ vai trò quan trọng trong việc phát triển tư duy và mở rộng kiến thức. Sách không chỉ cung cấp thông tin mà còn nuôi dưỡng tâm hồn.
+In the digital age, reading books still plays an important role in developing thinking and expanding knowledge. Books not only provide information but also nourish the soul.
 
-Việc xây dựng thói quen đọc sách từ nhỏ sẽ giúp chúng ta có nền tảng tri thức vững chắc và khả năng tư duy phản biện tốt hơn.
+Building a reading habit from a young age will help us have a solid knowledge foundation and better critical thinking ability.
 
-Hãy dành thời gian cho việc đọc sách mỗi ngày, dù chỉ là 15-30 phút, để làm giàu thêm hành trang kiến thức của bản thân.`
+Take time to read books every day, even if it's just 15-30 minutes, to enrich your knowledge.`
   },
   {
     id: 9,
-    title: 'Rừng nhiệt đới',
-    description: 'Khám phá hệ sinh thái đa dạng và phong phú của các khu rừng nhiệt đới.',
+    title: 'Tropical Rainforest',
+    description: 'Exploring the diverse and rich ecosystem of tropical rainforests.',
     image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e',
-    content: `Rừng nhiệt đới - Lá phổi xanh của Trái Đất
+    content: `Tropical Rainforest - Green Lungs of the Earth
 
-Rừng nhiệt đới là một trong những hệ sinh thái đa dạng nhất trên Trái Đất, chứa đựng hàng triệu loài động thực vật. Những khu rừng này đóng vai trò quan trọng trong việc điều hòa khí hậu toàn cầu.
+Tropical rainforests are one of the most diverse ecosystems on Earth, containing millions of species of flora and fauna. These forests play an important role in regulating the global climate.
 
-Tuy nhiên, rừng nhiệt đới đang đối mặt với nguy cơ bị phá hủy do hoạt động của con người. Việc bảo vệ và phục hồi rừng là nhiệm vụ cấp bách của toàn nhân loại.
+However, tropical rainforests are facing the risk of destruction due to human activities. Protecting and restoring forests is an urgent task for all humanity.
 
-Chúng ta cần có những hành động cụ thể để bảo vệ những "lá phổi xanh" này cho các thế hệ tương lai.`
+We need specific actions to protect these "green lungs" for future generations.`
   },
   {
     id: 10,
-    title: 'Nghệ thuật nhiếp ảnh',
-    description: 'Khám phá thế giới nhiếp ảnh và cách ghi lại những khoảnh khắc đẹp trong cuộc sống.',
+    title: 'Photography Art',
+    description: 'Exploring the world of photography and how to capture beautiful moments in life.',
     image: 'https://images.unsplash.com/photo-1503264116251-35a269479413',
-    content: `Nghệ thuật nhiếp ảnh - Ghi lại khoảnh khắc
+    content: `Photography Art - Capturing Moments
 
-Nhiếp ảnh là nghệ thuật ghi lại những khoảnh khắc đẹp và ý nghĩa trong cuộc sống. Mỗi bức ảnh đều kể một câu chuyện và truyền tải cảm xúc của người chụp.
+Photography is the art of capturing beautiful and meaningful moments in life. Each photo tells a story and conveys the emotions of the photographer.
 
-Với sự phát triển của công nghệ, việc chụp ảnh trở nên dễ dàng hơn bao giờ hết. Tuy nhiên, để có những bức ảnh thực sự ấn tượng, chúng ta cần hiểu về ánh sáng, góc chụp và cách kể chuyện qua hình ảnh.
+With the development of technology, taking photos has become easier than ever. However, to have truly impressive photos, we need to understand light, shooting angles and how to tell stories through images.
 
-Hãy mang theo máy ảnh và ghi lại những khoảnh khắc đẹp trong cuộc sống hàng ngày của bạn.`
+Bring your camera and capture beautiful moments in your daily life.`
   }
 ];
 
-// Hàm để lấy 3 tin tức đầu tiên cho Home và Subsidiary screens
+// Function to get the first 3 news for Home and Subsidiary screens
 export const getTopThreeNews = () => {
   return newsData.slice(0, 3);
 };
 
-// Hàm để lấy tin tức theo ID
+// Function to get news by ID
 export const getNewsById = (id) => {
   return newsData.find(news => news.id === parseInt(id));
 };

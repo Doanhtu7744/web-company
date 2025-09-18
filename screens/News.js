@@ -24,6 +24,9 @@ const NewsScreen = ({ navigation, route }) => {
       navigation.navigate('Branches');
     } else if (menuItem === 'News') {
       navigation.navigate('News');
+    } else if (menuItem === 'Projects') {
+      // Navigate to Home and scroll to Featured Projects section
+      navigation.navigate('Home', { scrollToProjects: true });
     }
     // Add other navigation logic as needed
   };
@@ -32,14 +35,14 @@ const NewsScreen = ({ navigation, route }) => {
     navigation.navigate('DetailedNews', { newsId });
   };
 
-  // Cuộn đến tin tức được chọn khi màn hình được load
+  // Scroll to selected news when screen is loaded
   useEffect(() => {
     if (selectedNewsId && scrollViewRef.current) {
-      // Tìm index của tin tức được chọn
+      // Find index of selected news
       const selectedIndex = newsData.findIndex(news => news.id === selectedNewsId);
       if (selectedIndex !== -1) {
-        // Cuộn đến tin tức đó (ước tính vị trí dựa trên chiều cao của mỗi item)
-        const itemHeight = 130; // Ước tính chiều cao của mỗi news item
+        // Scroll to that news (estimate position based on height of each item)
+        const itemHeight = 130; // Estimated height of each news item
         const scrollToY = selectedIndex * itemHeight;
         setTimeout(() => {
           scrollViewRef.current?.scrollTo({ y: scrollToY, animated: true });
@@ -100,6 +103,9 @@ const NewsScreen = ({ navigation, route }) => {
               <TouchableOpacity onPress={() => handleLanguageSelect('English')}>
                 <Text style={styles.dropdownItem}>English</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleLanguageSelect('Tiếng Việt')}>
+                <Text style={styles.dropdownItem}>Tiếng Việt</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
@@ -148,8 +154,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 150, // Tăng padding để có thể cuộn đến cuối
-    paddingTop: 80, // Thêm padding top để tránh header che
+    paddingBottom: 150, // Increase padding to be able to scroll to the end
+    paddingTop: 80, // Add padding top to avoid header covering content
   },
   header: {
     flexDirection: 'row',

@@ -28,4 +28,4 @@ export default function App() {
 }
 
 
-//thêm ảnh minh hoạ vào phần News của màn Home với màn SubsidiaryScreen (3 tin tức ở 2 màn này sẽ là 3 tin tức đầu tiên trong trang News) cho tôi khi bấm vào ảnh của tin tức nào trong các tin tức đó sẽ dẫn đến tin tức đó ở trang News. Khi bấm vào tin tức nào ở trang News thì sẽ dẫn đến trang Detailednews(giữ nguyên như hiện tại là bấm vào hình tin tức nào thì sẽ chuyển đến trang chi tiết của trang đó) của tin tức đó 
+// Add illustrations to the News section of Home and SubsidiaryScreen (3 news items on these 2 screens will be the first 3 news items in the News page). When clicking on any news image in those news items, it will lead to that news item on the News page. When clicking on any news item on the News page, it will lead to the Detailednews page (keep it as it is currently - clicking on any news image will switch to the detail page of that page) of that news item

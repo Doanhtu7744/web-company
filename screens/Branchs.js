@@ -21,6 +21,9 @@ const BranchsScreen = ({ navigation }) => {
       navigation.navigate('Branches');
     } else if (menuItem === 'News') {
       navigation.navigate('News');
+    } else if (menuItem === 'Projects') {
+      // Navigate to Home and scroll to Featured Projects section
+      navigation.navigate('Home', { scrollToProjects: true });
     }
     // Add other navigation logic as needed
   };
@@ -28,32 +31,32 @@ const BranchsScreen = ({ navigation }) => {
   const hanoiBranches = [
     {
       id: 1,
-      title: 'Chi nhánh Hà Nội - Trung tâm',
-      description: 'Chi nhánh chính tại trung tâm thành phố Hà Nội, phục vụ khách hàng khu vực nội thành.',
+      title: 'Hanoi Branch - Center',
+      description: 'Main branch in Hanoi city center, serving customers in inner city area.',
       icon: 'https://static.thenounproject.com/png/branch-office-icon-1248845-512.png'
     },
     {
       id: 2,
-      title: 'Chi nhánh Hà Nội - Cầu Giấy',
-      description: 'Chi nhánh tại quận Cầu Giấy, phục vụ khu vực phía Tây Hà Nội.',
+      title: 'Hanoi Branch - Cau Giay',
+      description: 'Branch in Cau Giay district, serving the western area of ​​Hanoi.',
       icon: 'https://static.thenounproject.com/png/branch-office-icon-1264419-512.png'
     },
     {
       id: 3,
-      title: 'Chi nhánh Hà Nội - Đống Đa',
-      description: 'Chi nhánh tại quận Đống Đa, phục vụ khu vực trung tâm và các quận lân cận.',
+      title: 'Hanoi Branch - Dong Da',
+      description: 'Branch in Dong Da district, serving the central area and neighboring districts.',
       icon: 'https://static.thenounproject.com/png/branch-office-icon-2759964-512.png'
     },
     {
       id: 4,
-      title: 'Chi nhánh Hà Nội - Hai Bà Trưng',
-      description: 'Chi nhánh tại quận Hai Bà Trưng, phục vụ khu vực phía Đông Hà Nội.',
+      title: 'Hanoi Branch - Hai Ba Trung',
+      description: 'Branch in Hai Ba Trung district, serving the eastern area of ​​Hanoi.',
       icon: 'https://static.thenounproject.com/png/branch-office-icon-3420343-512.png'
     },
     {
       id: 5,
-      title: 'Chi nhánh Hà Nội - Long Biên',
-      description: 'Chi nhánh tại quận Long Biên, phục vụ khu vực phía Bắc sông Hồng.',
+      title: 'Hanoi Branch - Long Bien',
+      description: 'Branch in Long Bien district, serving the area north of the Red River.',
       icon: 'https://static.thenounproject.com/png/branch-office-icon-3409543-512.png'
     },
   ];
@@ -61,32 +64,32 @@ const BranchsScreen = ({ navigation }) => {
   const hoChiMinhBranches = [
     {
       id: 1,
-      title: 'Chi nhánh TP.HCM - Quận 1',
-      description: 'Chi nhánh chính tại trung tâm thành phố, phục vụ khu vực quận 1 và các quận trung tâm.',
+      title: 'Ho Chi Minh City Branch - District 1',
+      description: 'Main branch in the city center, serving District 1 and central districts.',
       icon: 'https://static.thenounproject.com/png/building-icon-3739759-512.png'
     },
     {
       id: 2,
-      title: 'Chi nhánh TP.HCM - Quận 3',
-      description: 'Chi nhánh tại quận 3, phục vụ khu vực trung tâm và các quận lân cận.',
+      title: 'Ho Chi Minh City Branch - District 3',
+      description: 'Branch in District 3, serving the central area and neighboring districts.',
       icon: 'https://static.thenounproject.com/png/organization-icon-2201036-512.png'
     },
     {
       id: 3,
-      title: 'Chi nhánh TP.HCM - Quận 7',
-      description: 'Chi nhánh tại quận 7, phục vụ khu vực phía Nam thành phố và khu đô thị mới.',
+      title: 'Ho Chi Minh City Branch - District 7',
+      description: 'Branch in District 7, serving the southern area of ​​the city and new urban area.',
       icon: 'https://static.thenounproject.com/png/subsidiary-icon-5247442-512.png'
     },
     {
       id: 4,
-      title: 'Chi nhánh TP.HCM - Thủ Đức',
-      description: 'Chi nhánh tại thành phố Thủ Đức, phục vụ khu vực phía Đông và các khu công nghệ cao.',
+      title: 'Ho Chi Minh City Branch - Thu Duc',
+      description: 'Branch in Thu Duc city, serving the Eastern region and high-tech zones.',
       icon: 'https://static.thenounproject.com/png/business-location-icon-582793-512.png'
     },
     {
       id: 5,
-      title: 'Chi nhánh TP.HCM - Bình Thạnh',
-      description: 'Chi nhánh tại quận Bình Thạnh, phục vụ khu vực trung tâm mở rộng.',
+      title: 'Ho Chi Minh City Branch - Binh Thanh',
+      description: 'Branch in Binh Thanh district, serving the expanding central area.',
       icon: 'https://static.thenounproject.com/png/bank-icon-1646566-512.png'
     },
   ];
@@ -155,6 +158,9 @@ const BranchsScreen = ({ navigation }) => {
               <TouchableOpacity onPress={() => handleLanguageSelect('English')}>
                 <Text style={styles.dropdownItem}>English</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleLanguageSelect('Tiếng Việt')}>
+                <Text style={styles.dropdownItem}>Tiếng Việt</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
@@ -164,13 +170,13 @@ const BranchsScreen = ({ navigation }) => {
       <View style={styles.mainContent}>
         {/* Branch in Hanoi Section */}
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Chi nhánh tại Hà Nội</Text>
+          <Text style={styles.sectionTitle}>Branch in Ha Noi</Text>
           {hanoiBranches.map((branch, index) => renderBranchItem(branch, index))}
         </View>
 
         {/* Branches in Ho Chi Minh Section */}
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Chi nhánh tại TP. Hồ Chí Minh</Text>
+          <Text style={styles.sectionTitle}>Branch in Ho Chi Minh</Text>
           {hoChiMinhBranches.map((branch, index) => renderBranchItem(branch, index))}
         </View>
       </View>
@@ -185,8 +191,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 150, // Tăng padding để có thể cuộn đến cuối
-    paddingTop: 80, // Thêm padding top để tránh header che
+    paddingBottom: 150, // Increase padding to be able to scroll to the end
+    paddingTop: 80, // Add padding top to avoid header covering content
   },
   header: {
     flexDirection: 'row',

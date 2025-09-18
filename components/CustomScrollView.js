@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { ScrollView, Platform } from 'react-native';
 
-const CustomScrollView = ({ children, style, contentContainerStyle, ...props }) => {
+const CustomScrollView = forwardRef(({ children, style, contentContainerStyle, ...props }, ref) => {
   const webStyles = Platform.OS === 'web' ? {
     overflow: 'auto',
     scrollbarWidth: 'auto',
@@ -15,6 +15,7 @@ const CustomScrollView = ({ children, style, contentContainerStyle, ...props }) 
 
   return (
     <ScrollView
+      ref={ref}
       style={[style, webStyles]}
       contentContainerStyle={[contentContainerStyle, webContentStyles]}
       showsVerticalScrollIndicator={true}
@@ -28,6 +29,6 @@ const CustomScrollView = ({ children, style, contentContainerStyle, ...props }) 
       {children}
     </ScrollView>
   );
-};
+});
 
 export default CustomScrollView;

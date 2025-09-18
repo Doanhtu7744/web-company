@@ -6,11 +6,11 @@ const DetailedNewsScreen = ({ navigation, route }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('Korean');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
 
-  // Lấy dữ liệu tin tức từ route params
+  // Get news data from route params
   const newsId = route.params?.newsId;
   const newsData = getNewsById(newsId);
 
-  // Nếu không tìm thấy tin tức, sử dụng dữ liệu mặc định
+  // If news not found, use default data
   const defaultNews = {
     id: 0,
     title: 'Default Title',
@@ -37,6 +37,9 @@ const DetailedNewsScreen = ({ navigation, route }) => {
       navigation.navigate('Branches');
     } else if (menuItem === 'News') {
       navigation.navigate('News');
+    } else if (menuItem === 'Projects') {
+      // Navigate to Home and scroll to Featured Projects section
+      navigation.navigate('Home', { scrollToProjects: true });
     }
     // Add other navigation logic as needed
   };
@@ -91,6 +94,9 @@ const DetailedNewsScreen = ({ navigation, route }) => {
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleLanguageSelect('English')}>
                 <Text style={styles.dropdownItem}>English</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleLanguageSelect('Tiếng Việt')}>
+                <Text style={styles.dropdownItem}>Tiếng Việt</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -206,6 +212,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center',
   },
   descriptionSection: {
     backgroundColor: '#fff',
