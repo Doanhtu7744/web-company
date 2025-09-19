@@ -5,19 +5,14 @@ import { getTopThreeNews } from '../data/newsData';
 
 
 const HomeScreen = ({ navigation, route }) => {
-  // Get the first 3 news from common data
   const topThreeNews = getTopThreeNews();
 
-  // Ref for scroll view to be able to scroll to specific position
   const scrollViewRef = useRef(null);
-  // Ref for Featured Projects section to get exact position
   const featuredProjectsRef = useRef(null);
 
-  // Check if there is scrollToProjects parameter from navigation
   useEffect(() => {
     if (route.params?.scrollToProjects) {
       console.log('scrollToProjects parameter detected, will scroll after delay');
-      // Multiple attempts to ensure scroll works
       const timeouts = [500, 1000, 1500];
       timeouts.forEach(delay => {
         setTimeout(() => {
@@ -28,7 +23,6 @@ const HomeScreen = ({ navigation, route }) => {
     }
   }, [route.params?.scrollToProjects]);
 
-  // Sample data (replace with props or API)
   const companyInfo = {
     name: 'Photoism',
     slogan: 'Gallery - Photoism',
@@ -62,10 +56,9 @@ const HomeScreen = ({ navigation, route }) => {
       } else if (item === 'News') {
         navigation.navigate('News');
       } else if (item === 'Projects') {
-        // Scroll to Featured Projects section
         scrollToProjects();
       } else {
-        alert(`Navigate to ${item}`); // Keep alert for other items
+        alert(`Navigate to ${item}`); 
       }
     };
 
@@ -343,12 +336,13 @@ const HomeScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
   },
   scrollContent: {
     flexGrow: 1,
     paddingBottom: 150, // Increase padding to be able to scroll to the end
     paddingTop: 80, // Add padding top to avoid header covering content
+    paddingHorizontal: '5%', // Match banner padding (90% width = 5% each side)
   },
   header: {
     flexDirection: 'row',
@@ -400,10 +394,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f8f8f8',
     paddingVertical: 20,
-    marginBottom: 10
+    marginBottom: 25
   },
   banner: {
-    width: '90%',
+    width: '98.5%',
     height: 250,
     justifyContent: 'center',
     alignItems: 'center',
@@ -431,37 +425,261 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10
   },
-  card: { margin: 10, padding: 15, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ddd', borderRadius: 5 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginTop: 20, marginHorizontal: 10, textAlign: 'center' },
-  description: { fontSize: 14, color: '#666', textAlign: 'center' },
-  timelineItem: { fontSize: 14, marginVertical: 2, textAlign: 'center' },
-  gridRow: { flexDirection: 'row', justifyContent: 'space-around', margin: 10 },
-  gridItem: { width: '30%', padding: 15, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ddd', borderRadius: 5, alignItems: 'center' },
-  gridTitle: { fontSize: 16, fontWeight: 'bold', textAlign: 'center' },
-  servicesRow: { flexDirection: 'row', margin: 10, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ddd', borderRadius: 5 },
-  screenshotContainer: { flex: 1, padding: 10 },
-  screenshotImage: { width: '100%', height: 120, backgroundColor: '#ddd' },
-  serviceInfo: { flex: 1, padding: 10, justifyContent: 'center' },
-  serviceText: { fontSize: 14, color: '#666' },
-  projectsGrid: { flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap', margin: 10 },
-  projectCard: { width: '30%', margin: 5, padding: 15, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
-  projectTitle: { fontWeight: 'bold', marginBottom: 8, fontSize: 16 },
-  projectDesc: { fontSize: 12, color: '#666', lineHeight: 16 },
-  newsGrid: { flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap', margin: 10 },
-  newsCard: { width: '30%', margin: 5, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
-  newsImage: { width: '100%', height: 80, backgroundColor: '#ddd' },
-  newsTitle: { fontWeight: 'bold', padding: 8, textAlign: 'center', borderBottomWidth: 1, borderBottomColor: '#ddd' },
-  newsDesc: { padding: 8, fontSize: 12, color: '#666', textAlign: 'center' },
-  partnersGrid: { flexDirection: 'column', margin: 10 },
-  partnerCard: { flexDirection: 'row', margin: 5, padding: 10, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
-  partnerImage: { width: 80, height: 60, backgroundColor: '#f8f8f8', marginRight: 10, borderRadius: 5, resizeMode: 'cover' },
-  partnerInfo: { flex: 1, justifyContent: 'center' },
-  partnerTitle: { fontWeight: 'bold', marginBottom: 4 },
-  partnerDesc: { fontSize: 12, color: '#666' },
-  contactContainer: { margin: 10, padding: 15, borderWidth: 1, borderColor: '#ddd', borderRadius: 5, backgroundColor: '#fff' },
-  contactRow: { flexDirection: 'row', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: '#ddd' },
-  contactLabel: { width: 100, fontWeight: 'bold' },
-  contactValue: { flex: 1 },
+  card: {
+    margin: 10,
+    padding: 20,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    marginBottom: 25
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    marginTop: 15,
+    color: '#333',
+    textAlign: 'center'
+  },
+  description: {
+    fontSize: 15,
+    color: '#666',
+    textAlign: 'center',
+    lineHeight: 22
+  },
+  timelineItem: {
+    fontSize: 15,
+    marginVertical: 4,
+    textAlign: 'center',
+    color: '#555',
+    lineHeight: 20
+  },
+  gridRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    marginVertical: 15,
+    gap: 12
+  },
+  gridItem: {
+    flex: 1,
+    padding: 18,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 3,
+    elevation: 2,
+    minHeight: 80
+  },
+  gridTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#333',
+    lineHeight: 18
+  },
+  servicesRow: {
+    flexDirection: 'row',
+    margin: 10,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    overflow: 'hidden'
+  },
+  screenshotContainer: {
+    flex: 1,
+    padding: 0
+  },
+  screenshotImage: {
+    width: '100%',
+    height: 140,
+    backgroundColor: '#f0f0f0',
+    resizeMode: 'cover'
+  },
+  serviceInfo: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center'
+  },
+  serviceText: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    fontWeight: '500'
+  },
+  projectsGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    marginHorizontal: 10,
+    marginVertical: 15,
+    gap: 12
+  },
+  projectCard: {
+    width: '30%',
+    margin: 5,
+    padding: 15,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    alignItems: 'center'
+  },
+  projectTitle: {
+    fontWeight: 'bold',
+    marginBottom: 8,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#333'
+  },
+  projectDesc: {
+    fontSize: 12,
+    color: '#666',
+    lineHeight: 16,
+    textAlign: 'center'
+  },
+  newsGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    marginHorizontal: 10,
+    marginVertical: 15,
+    gap: 12
+  },
+  newsCard: {
+    width: '30%',
+    margin: 5,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    overflow: 'hidden'
+  },
+  newsImage: {
+    width: '100%',
+    height: 90,
+    backgroundColor: '#f0f0f0',
+    resizeMode: 'cover'
+  },
+  newsTitle: {
+    fontWeight: 'bold',
+    padding: 12,
+    textAlign: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    fontSize: 14,
+    color: '#333'
+  },
+  newsDesc: {
+    padding: 12,
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
+    lineHeight: 16
+  },
+  partnersGrid: {
+    flexDirection: 'column',
+    marginHorizontal: 10,
+    marginVertical: 15
+  },
+  partnerCard: {
+    flexDirection: 'row',
+    margin: 5,
+    padding: 15,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    alignItems: 'center'
+  },
+  partnerImage: {
+    width: 80,
+    height: 60,
+    backgroundColor: '#f8f8f8',
+    marginRight: 15,
+    borderRadius: 8,
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: '#e0e0e0'
+  },
+  partnerInfo: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  partnerTitle: {
+    fontWeight: 'bold',
+    marginBottom: 6,
+    fontSize: 16,
+    color: '#333'
+  },
+  partnerDesc: {
+    fontSize: 13,
+    color: '#666',
+    lineHeight: 18
+  },
+  contactContainer: {
+    margin: 10,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3
+  },
+  contactRow: {
+    flexDirection: 'row',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    alignItems: 'center'
+  },
+  contactLabel: {
+    width: 120,
+    fontWeight: 'bold',
+    fontSize: 15,
+    color: '#333'
+  },
+  contactValue: {
+    flex: 1,
+    fontSize: 15,
+    color: '#666'
+  },
   testButton: {
     backgroundColor: '#4CAF50',
     padding: 15,

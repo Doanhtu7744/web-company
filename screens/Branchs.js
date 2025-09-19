@@ -187,12 +187,13 @@ const BranchsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
   },
   scrollContent: {
     flexGrow: 1,
     paddingBottom: 150, // Increase padding to be able to scroll to the end
     paddingTop: 80, // Add padding top to avoid header covering content
+    paddingHorizontal: '5%', // Match banner padding (90% width = 5% each side)
   },
   header: {
     flexDirection: 'row',
@@ -255,21 +256,28 @@ const styles = StyleSheet.create({
   branchItem: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
     marginBottom: 15,
-    padding: 15,
+    padding: 18,
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   branchImage: {
     width: 80,
     height: 80,
     backgroundColor: '#f8f8f8',
-    borderRadius: 5,
+    borderRadius: 8,
     marginRight: 15,
     resizeMode: 'contain',
     padding: 10,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
   },
   branchTextContainer: {
     flex: 1,
@@ -278,12 +286,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 5,
+    marginBottom: 8,
+    lineHeight: 22,
   },
   branchDescription: {
     fontSize: 14,
     color: '#666',
-    lineHeight: 18,
+    lineHeight: 20,
   },
 });
 
