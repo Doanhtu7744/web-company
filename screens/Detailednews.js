@@ -136,12 +136,13 @@ const DetailedNewsScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
   },
   scrollContent: {
     flexGrow: 1,
     paddingBottom: 150, // Tăng padding để có thể cuộn đến cuối
     paddingTop: 80, // Thêm padding top để tránh header che
+    paddingHorizontal: '5%', // Match banner padding (90% width = 5% each side)
   },
   header: {
     flexDirection: 'row',
@@ -197,35 +198,50 @@ const styles = StyleSheet.create({
   largeImage: {
     width: '100%',
     height: 300,
-    backgroundColor: '#ddd',
-    borderRadius: 5,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    resizeMode: 'cover',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
   },
   titleSection: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
-    padding: 15,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    padding: 20,
     marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   titleText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
     textAlign: 'center',
+    lineHeight: 28,
   },
   descriptionSection: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
-    padding: 15,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    padding: 20,
     minHeight: 200,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   descriptionText: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#666',
-    lineHeight: 20,
+    lineHeight: 24,
+    textAlign: 'justify',
   },
 });
 

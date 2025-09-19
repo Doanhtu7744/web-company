@@ -9,27 +9,27 @@ const ScrollbarStyles = () => {
       style.textContent = `
         /* Force scrollbars to be visible */
         * {
-          scrollbar-width: auto !important;
+          scrollbar-width: thin !important;
           scrollbar-color: #888 #f1f1f1 !important;
         }
         
         /* Custom webkit scrollbars */
         *::-webkit-scrollbar {
-          width: 16px !important;
-          height: 16px !important;
+          width: 8px !important;
+          height: 8px !important;
           display: block !important;
           -webkit-appearance: none !important;
         }
         
         *::-webkit-scrollbar-track {
           background: #f1f1f1 !important;
-          border-radius: 8px !important;
+          border-radius: 4px !important;
         }
-        
+
         *::-webkit-scrollbar-thumb {
           background: #888 !important;
-          border-radius: 8px !important;
-          border: 2px solid #f1f1f1 !important;
+          border-radius: 4px !important;
+          border: 1px solid #f1f1f1 !important;
           min-height: 20px !important;
         }
         
@@ -46,27 +46,27 @@ const ScrollbarStyles = () => {
         /* Force React Native ScrollView to show scrollbars */
         div[style*="overflow"] {
           overflow-y: scroll !important;
-          scrollbar-width: auto !important;
+          scrollbar-width: thin !important;
         }
-        
+
         /* Target React Native Web generated classes */
         .css-view-1dbjc4n {
           overflow-y: scroll !important;
-          scrollbar-width: auto !important;
+          scrollbar-width: thin !important;
         }
         
         .css-view-1dbjc4n::-webkit-scrollbar {
-          width: 16px !important;
+          width: 8px !important;
           display: block !important;
         }
-        
+
         /* Force all divs with overflow to show scrollbars */
         div {
-          scrollbar-width: auto !important;
+          scrollbar-width: thin !important;
         }
-        
+
         div::-webkit-scrollbar {
-          width: 16px !important;
+          width: 8px !important;
           display: block !important;
         }
       `;

@@ -150,12 +150,13 @@ const NewsScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
   },
   scrollContent: {
     flexGrow: 1,
     paddingBottom: 150, // Increase padding to be able to scroll to the end
     paddingTop: 80, // Add padding top to avoid header covering content
+    paddingHorizontal: '5%', // Match banner padding (90% width = 5% each side)
   },
   header: {
     flexDirection: 'row',
@@ -220,10 +221,15 @@ const styles = StyleSheet.create({
   newsItem: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
     marginBottom: 15,
-    padding: 15,
+    padding: 18,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   selectedNewsItem: {
     backgroundColor: '#f0f8ff',
@@ -232,14 +238,17 @@ const styles = StyleSheet.create({
   },
   newsContent: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   newsImage: {
     width: 120,
     height: 80,
-    backgroundColor: '#ddd',
-    borderRadius: 5,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
     marginRight: 15,
+    resizeMode: 'cover',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
   },
   newsTextContainer: {
     flex: 1,
@@ -248,12 +257,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 5,
+    marginBottom: 8,
+    lineHeight: 22,
   },
   newsDescription: {
     fontSize: 14,
     color: '#666',
-    lineHeight: 18,
+    lineHeight: 20,
   },
 });
 
